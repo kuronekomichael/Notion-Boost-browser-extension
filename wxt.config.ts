@@ -32,8 +32,8 @@ const baseManifest = {
     name: 'Notion Boost',
     short_name: 'Notion Boost',
     version: '3.3.7',
-    description:
-        'Boost Notion productivity with 20+ customizations like outline, small text full width for all, back to top button etc',
+    default_locale: 'en',
+    description: '__MSG_extensionDescription__',
     author: 'Gourav Goyal',
     permissions: ['storage'],
     host_permissions: ['*://*.notion.so/*', '*://*.notion.site/*', '*://*.notion.com/*'],
@@ -44,6 +44,7 @@ const baseManifest = {
         '128': '/icon/icon128.png',
     },
     action: {
+        default_title: '__MSG_popupTitle__',
         default_icon: {
             '16': '/icon/icon16.png',
             '24': '/icon/icon24.png',

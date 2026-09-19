@@ -4,6 +4,10 @@ import ReactDOM from 'react-dom/client';
 import '@/styles/popup.scss';
 import Home from './App';
 import { About } from './About';
+import { getLocale, t } from '@/components/i18n';
+
+document.documentElement.lang = getLocale();
+document.title = t('popupTitle');
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <StrictMode>

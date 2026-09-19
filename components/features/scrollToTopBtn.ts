@@ -5,6 +5,7 @@ import {
   pageChangeListener,
   removePageChangeListener,
 } from '../utils';
+import { t } from '../i18n';
 
 const notionFrameCls = '.notion-frame';
 let pageChangeObserverObj = {};
@@ -52,8 +53,10 @@ function scrollToTop() {
 }
 function addScrollTopBtn() {
   // add btn div to HTML
-  const btnHTML = `<div class="scroll-top-btn" title="Scroll back to top" role="button" tabindex="0">⭡</div>`;
-  getElement(notionFrameCls).after(toElement(btnHTML));
+  const btnEl = toElement('<div class="scroll-top-btn" role="button" tabindex="0">⭡</div>');
+  btnEl.setAttribute('title', t('goToTop'));
+  btnEl.setAttribute('aria-label', t('goToTop'));
+  getElement(notionFrameCls).after(btnEl);
   console.log('inserted scroll btn div');
   scrollBtn = getElement('.scroll-top-btn');
   // scrollTopBtn.classList.add(btnCls);

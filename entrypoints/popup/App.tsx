@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 import { Page } from './main';
 import { SettingsTable } from '@/components/SettingsTable';
+import { t } from '@/components/i18n';
 
 function Home({ setPageToShow }: { setPageToShow: Dispatch<SetStateAction<Page>> }) {
     return (
@@ -15,7 +16,7 @@ function Home({ setPageToShow }: { setPageToShow: Dispatch<SetStateAction<Page>>
                         onClick={() => {
                             window.open('https://gourav.io/notion-boost', '_blank');
                         }}>
-                        Notion Boost
+                        {t('popupTitle')}
                     </div>
                 </div>
 
@@ -30,7 +31,7 @@ function Home({ setPageToShow }: { setPageToShow: Dispatch<SetStateAction<Page>>
                             className="button"
                             role="button"
                             tabIndex={0}>
-                            Features info <NewTabIcon />
+                            {t('featuresInfo')} <NewTabIcon />
                         </div>
                     </a>
                     {/* <a className="footer-item" href={twitterShareTxt} target="_blank">
@@ -46,7 +47,7 @@ function Home({ setPageToShow }: { setPageToShow: Dispatch<SetStateAction<Page>>
                             className="button"
                             role="button"
                             tabIndex={0}>
-                            About
+                            {t('about')}
                             {/* <AboutIcon /> */}
                         </div>
                     </div>
@@ -65,7 +66,7 @@ function Home({ setPageToShow }: { setPageToShow: Dispatch<SetStateAction<Page>>
                         title="ChatGPT Writer">
                         ChatGPT Writer
                     </a>
-                    <span style={styles.smallGreyText}> - Let AI write emails and messages for you</span>
+                    <span style={styles.smallGreyText}> - {t('writerDescription')}</span>
                 </div>
             </div>
         </div>

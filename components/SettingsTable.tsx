@@ -1,6 +1,7 @@
 import { settingDetails } from './settings';
 import { getElement, getLatestSettings } from './utils';
 import { Fragment } from 'react';
+import { t } from '@/components/i18n';
 
 function isFuncEnabled(func: any) {
     const btnToDisable = getElement(`[data-func=${func}]`);
@@ -81,10 +82,17 @@ export function SettingsTable() {
         }
     }, []);
 
-    const filteredItems = settings.filter(
-        (item) =>
-            item.name.toLocaleLowerCase().includes(filterText) || item.desc.toLocaleLowerCase().includes(filterText),
-    );
+    const getLocalizedName = (item: (typeof settingDetails)[number]) => t(`setting_${item.func}_name`);
+    const getLocalizedDescription = (item: (typeof settingDetails)[number]) =>
+        item.desc ? t(`setting_${item.func}_desc`) : '';
+
+    const filteredItems = settings.filter((item) => {
+        const searchableText = [item.name, item.desc, getLocalizedName(item), getLocalizedDescription(item)]
+            .join(' ')
+            .toLocaleLowerCase();
+
+        return searchableText.includes(filterText);
+    });
     console.log('filtered items', filteredItems);
 
     const itemsToDisplay = filterText ? filteredItems : settings;
@@ -100,11 +108,12 @@ export function SettingsTable() {
                 type="text"
                 autoFocus
                 value={filterText}
-                placeholder="Search feature..."
+                aria-label={t('searchLabel')}
+                placeholder={t('searchPlaceholder')}
                 onInput={handleOnchange}
             />
             <div className="settings table">
-                {!filteredItems.length && <div className="no-setting">No setting found</div>}
+                {!filteredItems.length && <div className="no-setting">{t('noSettingsFound')}</div>}
                 {itemsToDisplay.map((obj, index) => (
                     <Fragment key={obj.func}>
                         <div
@@ -113,8 +122,8 @@ export function SettingsTable() {
                             data-disable_func={obj.disable_func}
                             onClick={() => handleFeature(obj)}>
                             <div className="text-wrapper">
-                                <div className="name">{obj.name}</div>
-                                {obj.desc && <div className="desc">{obj.desc}</div>}
+                                <div className="name">{getLocalizedName(obj)}</div>
+                                {obj.desc && <div className="desc">{getLocalizedDescription(obj)}</div>}
                             </div>
                             <div
                                 className="button toggle"

@@ -70,7 +70,8 @@ p {
 }
 
 .back.button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     .arrow {
         -webkit-mask-image: url('../assets/left-arrow.svg');
         mask-image: url('../assets/left-arrow.svg');
@@ -84,6 +85,11 @@ p {
     }
     cursor: pointer;
     margin-bottom: 5px;
+
+    .back-label {
+        color: rgba($color-gray, 0.6);
+        font-size: 13px;
+    }
 }
 
 $line: 1px solid rgba($color-gray, 0.1);
@@ -184,6 +190,7 @@ $line: 1px solid rgba($color-gray, 0.1);
 }
 
 .button.toggle {
+    flex: 0 0 auto;
     user-select: none;
     transition: background 20ms ease-in 0s;
     cursor: pointer;
@@ -338,6 +345,7 @@ $line: 1px solid rgba($color-gray, 0.1);
 
         .text-wrapper {
             flex: 1 1 0%;
+            min-width: 0;
             flex-wrap: wrap;
             min-height: 38px;
             display: flex;
@@ -349,7 +357,7 @@ $line: 1px solid rgba($color-gray, 0.1);
                 font-size: 12px;
                 line-height: 16px;
                 color: rgba($color-gray, 0.6);
-                width: 85%;
+                width: 100%;
                 margin-top: 4px;
             }
         }

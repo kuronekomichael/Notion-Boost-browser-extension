@@ -1,4 +1,5 @@
 import { isObserverType, onElementLoaded, pageChangeListener, removePageChangeListener, toElement } from '../utils';
+import { t } from '../i18n';
 
 const notionAppInnerCls = '.notion-app-inner';
 
@@ -72,12 +73,10 @@ let linkComponentEl: any = null;
 let rollupCellEl: any = null;
 
 function createLinkComponent(url: string) {
-    return toElement(
+    const linkComponent = toElement(
         `<div class="linkComponent">
       <div>
         <a
-          title="Open URL in new tab"
-          href="${url}"
           target="_blank"
           rel="noopener noreferrer"
           class="notion-focusable"
@@ -99,6 +98,13 @@ function createLinkComponent(url: string) {
     </div>
     `,
     );
+    const link = linkComponent.querySelector('a');
+    if (link) {
+        link.setAttribute('href', url);
+        link.setAttribute('title', t('openUrlInNewTab'));
+        link.setAttribute('aria-label', t('openUrlInNewTab'));
+    }
+    return linkComponent;
 }
 
 function handleTableHover(e: any) {

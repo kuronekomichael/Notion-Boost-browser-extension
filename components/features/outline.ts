@@ -8,6 +8,7 @@ import {
     removePageChangeListener,
     toElement,
   } from "../utils";
+  import { t } from "../i18n";
 
 
   let pageChangeObserverObj = {};
@@ -81,8 +82,11 @@ import {
               }
               const sibling = document.querySelector(siblingCls);
               const btnEl = toElement(
-                `<div class=${outlineToggleBtn} role="button" title="Show/hide outline" tabindex="-1">Outline</div>`
+                `<div class=${outlineToggleBtn} role="button" tabindex="-1"></div>`
               );
+              btnEl.textContent = t("outlineTitle");
+              btnEl.setAttribute("title", t("toggleOutline"));
+              btnEl.setAttribute("aria-label", t("toggleOutline"));
   
               btnEl.addEventListener("click", () => {
                 console.log("yup");
@@ -118,8 +122,11 @@ import {
               }
               const sibling = document.querySelectorAll(siblingCls)[2];
               const btnEl = toElement(
-                `<div class=${outlineToggleBtn} role="button" title="Show/hide outline" tabindex="-1">Outline</div>`
+                `<div class=${outlineToggleBtn} role="button" tabindex="-1"></div>`
               );
+              btnEl.textContent = t("outlineTitle");
+              btnEl.setAttribute("title", t("toggleOutline"));
+              btnEl.setAttribute("aria-label", t("toggleOutline"));
   
               btnEl.addEventListener("click", () => {
                 const el = document.querySelector(".nb-outline");
@@ -214,13 +221,18 @@ import {
         <div class="nb-outline">
           <div class="table_of_contents">
             <div class="title">
-            <p id="nbScrollToTop" title="Go to top" role="button">Outline</p>
+            <p id="nbScrollToTop" role="button"></p>
             </div>
             <div class="block-wrapper">
             </div>
           </div>
           </div>`);
   
+        const scrollToTopEl = outlineEl.querySelector("#nbScrollToTop");
+        scrollToTopEl.textContent = t("outlineTitle");
+        scrollToTopEl.setAttribute("title", t("goToTop"));
+        scrollToTopEl.setAttribute("aria-label", t("goToTop"));
+
         // add toc container
         notionScrollerEl.parentNode.insertBefore(outlineEl, notionScrollerEl);
   
@@ -506,19 +518,12 @@ import {
     }
   }
   
-  function isHeading(placeholder:string) {
+  export function isHeading(placeholder:string) {
     // check if the change was related to headings
   
     if (!placeholder || !placeholder.trim()) {
       return true;
     }
     const headings = ["Heading", "제목"];
-    headings.forEach((x) => {
-      if (placeholder.includes(x)) {
-        return true;
-      }
-    });
-  
-    return false;
+    return headings.some((heading) => placeholder.includes(heading));
   }
-  
